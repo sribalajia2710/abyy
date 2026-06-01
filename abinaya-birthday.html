@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Abinaya 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Parisienne&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --gold:       #c9913a;
+  --gold-light: #e8c07a;
+  --gold-pale:  #f7e9cc;
+  --rose:       #c0445a;
+  --rose-soft:  #e8899a;
+  --rose-pale:  #faeaed;
+  --ivory:      #fdf6ec;
+  --ivory-dark: #f5ead6;
+  --brown:      #3d1f10;
+  --text:       #2e1508;
+  --text-mid:   #7a4025;
+  --silk:       rgba(201,145,58,0.13);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ivory);
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ─── SILK TEXTURE OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      105deg,
+      transparent 0px,
+      transparent 18px,
+      rgba(201,145,58,0.04) 18px,
+      rgba(201,145,58,0.04) 19px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── CANVAS PETALS ─── */
+#petal-canvas {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+.hero {
+  position: relative; z-index: 2;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 3rem 2rem 5rem;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 55%, #f9e8cc 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% 80%, #faeaed 0%, transparent 60%),
+    var(--ivory);
+}
+
+/* decorative arch border top */
+.hero::before {
+  content: '';
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: min(700px, 95vw); height: 6px;
+  background: linear-gradient(90deg, transparent, var(--gold-light), var(--gold), var(--gold-light), transparent);
+  border-radius: 0 0 50% 50%;
+}
+
+.hero-ornament {
+  font-size: 2.2rem;
+  opacity: 0;
+  animation: fadeDown .8s .3s ease forwards;
+  margin-bottom: .6rem;
+  filter: drop-shadow(0 2px 8px rgba(201,145,58,.3));
+}
+
+.hero-from {
+  font-family: 'Parisienne', cursive;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  color: var(--gold);
+  letter-spacing: .06em;
+  opacity: 0;
+  animation: fadeDown .8s .7s ease forwards;
+  margin-bottom: .4rem;
+}
+
+.hero-name {
+  font-family: 'Rozha One', serif;
+  font-size: clamp(4.5rem, 14vw, 9rem);
+  line-height: .95;
+  letter-spacing: .01em;
+  color: var(--brown);
+  opacity: 0;
+  animation: fadeDown 1s 1s ease forwards;
+  position: relative;
+}
+
+.hero-name .accent {
+  color: var(--rose);
+  font-style: normal;
+}
+
+/* gold underline brush stroke */
+.hero-name::after {
+  content: '';
+  display: block;
+  height: 4px;
+  width: 60%;
+  margin: .5rem auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  border-radius: 2px;
+}
+
+.hero-age-pill {
+  display: inline-block;
+  margin-top: 1.2rem;
+  background: linear-gradient(135deg, var(--rose), #e8607a);
+  color: white;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-style: italic;
+  padding: .45rem 1.8rem;
+  border-radius: 99px;
+  letter-spacing: .04em;
+  box-shadow: 0 4px 20px rgba(192,68,90,.25);
+  opacity: 0;
+  animation: fadeDown .8s 1.6s ease forwards;
+}
+
+.hero-sub {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-style: italic;
+  color: var(--text-mid);
+  margin-top: 1.2rem;
+  max-width: 500px;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeDown .8s 2s ease forwards;
+}
+
+/* central lotus illustration */
+.hero-lotus {
+  width: clamp(160px, 28vw, 240px);
+  height: clamp(160px, 28vw, 240px);
+  margin: 2rem auto 1.5rem;
+  opacity: 0;
+  animation: bloomIn 2.2s 1.2s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.hero-photo{
+  width:300px;
+  margin:2rem auto;
+  background:white;
+  padding:12px 12px 55px;
+  border-radius:10px;
+  box-shadow:0 15px 40px rgba(0,0,0,.15);
+  transform:rotate(-2deg);
+}
+
+.hero-photo img{
+  width:100%;
+  height:350px;
+  object-fit:cover;
+}
+
+.hero-photo::after{
+  content:'My Queen ❤️';
+  position:absolute;
+  bottom:18px;
+  left:0;
+  right:0;
+  text-align:center;
+  font-family:'Parisienne', cursive;
+  font-size:1.4rem;
+  color:var(--rose);
+}
+@keyframes bloomIn {
+  0%   { opacity:0; transform: scale(.05) rotate(-20deg); }
+  65%  { opacity:1; transform: scale(1.06) rotate(2deg); }
+  100% { opacity:1; transform: scale(1) rotate(0deg); }
+}
+
+.scroll-cue {
+  position: absolute; bottom: 2rem;
+  color: var(--gold);
+  font-size: .8rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeDown .6s 3s ease forwards, floatY 2.2s 3.6s ease-in-out infinite;
+}
+@keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
+@keyframes fadeDown { from{opacity:0;transform:translateY(-14px)} to{opacity:1;transform:translateY(0)} }
+
+/* ══════════════════════════════
+   SECTION HEADERS
+══════════════════════════════ */
+.section-label {
+  text-align: center;
+  position: relative; z-index: 2;
+  padding: 4rem 1rem 0;
+}
+
+.section-label .kalam {
+  font-family: 'Parisienne', cursive;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--gold);
+  display: block;
+  margin-bottom: .3rem;
+}
+
+.section-label h2 {
+  font-family: 'Rozha One', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: var(--brown);
+  line-height: 1.1;
+}
+
+.gold-rule {
+  width: 80px; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  border-radius: 2px;
+  margin: .8rem auto 0;
+}
+
+/* ══════════════════════════════
+   TIMELINE
+══════════════════════════════ */
+.timeline-wrap {
+  position: relative; z-index: 2;
+  max-width: 900px;
+  margin: 3rem auto 0;
+  padding: 0 1.5rem 5rem;
+}
+
+/* vertical line */
+.timeline-wrap::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: 0; bottom: 40px;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, transparent, var(--gold-light) 8%, var(--gold-light) 92%, transparent);
+}
+
+/* era group label */
+.era-label {
+  text-align: center;
+  position: relative;
+  margin: 3rem 0 1.5rem;
+}
+
+.era-label span {
+  display: inline-block;
+  background: var(--ivory);
+  border: 1.5px solid var(--gold-light);
+  border-radius: 99px;
+  padding: .35rem 1.4rem;
+  font-family: 'Parisienne', cursive;
+  font-size: 1.1rem;
+  color: var(--gold);
+  box-shadow: 0 2px 14px rgba(201,145,58,.12);
+}
+
+/* card */
+.moment {
+  display: grid;
+  grid-template-columns: 1fr 52px 1fr;
+  align-items: start;
+  margin-bottom: 3rem;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .65s ease, transform .65s ease;
+}
+.moment.visible { opacity:1; transform:translateY(0); }
+
+.moment-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--gold-pale);
+  box-shadow: 0 3px 24px rgba(201,145,58,.09);
+  position: relative;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.moment-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 36px rgba(192,68,90,.13);
+}
+
+/* little triangle pointer */
+.moment:nth-child(odd) .moment-card::after {
+  content: '';
+  position: absolute; right: -9px; top: 22px;
+  border: 9px solid transparent;
+  border-left-color: white;
+}
+.moment:nth-child(even) .moment-card::after {
+  content: '';
+  position: absolute; left: -9px; top: 22px;
+  border: 9px solid transparent;
+  border-right-color: white;
+}
+
+.moment:nth-child(odd)  .moment-card  { grid-column:1; }
+.moment:nth-child(odd)  .moment-node  { grid-column:2; }
+.moment:nth-child(odd)  .moment-empty { grid-column:3; }
+.moment:nth-child(even) .moment-empty { grid-column:1; }
+.moment:nth-child(even) .moment-node  { grid-column:2; }
+.moment:nth-child(even) .moment-card  { grid-column:3; }
+
+.moment-node {
+  display: flex; align-items: flex-start; justify-content: center;
+  padding-top: 1.1rem;
+}
+
+.node-circle {
+  width: 44px; height: 44px;
+  background: var(--ivory);
+  border: 2px solid var(--gold-light);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 0 0 5px var(--gold-pale);
+  transition: transform .3s ease;
+  cursor: default;
+}
+.node-circle:hover { transform: scale(1.2) rotate(12deg); }
+
+.card-date {
+  font-family: 'Parisienne', cursive;
+  font-size: 1rem;
+  color: var(--gold);
+  margin-bottom: .3rem;
+}
+.card-title {
+  font-family: 'Rozha One', serif;
+  font-size: 1.1rem;
+  color: var(--brown);
+  margin-bottom: .5rem;
+  line-height: 1.2;
+}
+.card-body {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text-mid);
+  font-style: italic;
+}
+
+/* special highlight card */
+.moment-card.highlight {
+  background: linear-gradient(135deg, #fff8ef 0%, #fdf0f3 100%);
+  border-color: var(--rose-soft);
+}
+.moment-card.highlight .card-title { color: var(--rose); }
+
+/* ══════════════════════════════
+   MOTHERHOOD SECTION
+══════════════════════════════ */
+.motherhood {
+  position: relative; z-index: 2;
+  background: linear-gradient(160deg, #fdf0e8 0%, #faeaed 100%);
+  padding: 5rem 2rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.motherhood::before,
+.motherhood::after {
+  content: '🌸';
+  position: absolute;
+  font-size: 8rem;
+  opacity: .07;
+}
+.motherhood::before { top: -1rem; left: -2rem; transform: rotate(-20deg); }
+.motherhood::after  { bottom: -1rem; right: -2rem; transform: rotate(15deg); }
+
+.mother-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: center;
+  max-width: 680px;
+  margin: 2.5rem auto 0;
+}
+
+.mother-chip {
+  background: white;
+  border: 1.5px solid var(--gold-pale);
+  border-radius: 12px;
+  padding: 1rem 1.4rem;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--text-mid);
+  display: flex; align-items: center; gap: .6rem;
+  box-shadow: 0 2px 14px rgba(201,145,58,.07);
+  transition: transform .25s;
+  max-width: 300px;
+  text-align: left;
+  line-height: 1.5;
+}
+.mother-chip:hover { transform: translateY(-4px); }
+.chip-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+/* ══════════════════════════════
+   LOVE LETTER
+══════════════════════════════ */
+.letter-wrap {
+  position: relative; z-index: 2;
+  padding: 5rem 1.5rem;
+  display: flex; justify-content: center;
+}
+
+.letter {
+  background: white;
+  max-width: 660px; width: 100%;
+  border-radius: 20px;
+  padding: 3.5rem;
+  border: 1px solid var(--gold-pale);
+  box-shadow: 0 8px 60px rgba(201,145,58,.12), 0 2px 0 var(--gold-light) inset;
+  position: relative;
+}
+
+/* decorative corner flourishes */
+.letter::before, .letter::after {
+  content: '❧';
+  position: absolute;
+  font-size: 2.5rem;
+  color: var(--gold-pale);
+  line-height: 1;
+}
+.letter::before { top: 1rem; left: 1.5rem; }
+.letter::after  { bottom: 1rem; right: 1.5rem; transform: rotate(180deg); }
+
+.letter-salutation {
+  font-family: 'Parisienne', cursive;
+  font-size: 1.3rem;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.letter-body {
+  font-size: 1.2rem;
+  line-height: 2;
+  font-style: italic;
+  color: var(--text-mid);
+  margin-bottom: 2rem;
+}
+
+.letter-body strong {
+  font-style: normal;
+  color: var(--rose);
+  font-weight: 600;
+}
+
+.letter-sig {
+  font-family: 'Parisienne', cursive;
+  font-size: 2rem;
+  color: var(--rose);
+  text-align: right;
+  display: block;
+}
+
+/* ══════════════════════════════
+   FOOTER
+══════════════════════════════ */
+.site-footer {
+  position: relative; z-index: 2;
+  text-align: center;
+  padding: 4rem 2rem 5rem;
+  background: var(--brown);
+  color: var(--ivory);
+}
+
+.site-footer::before {
+  content: '';
+  display: block;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--gold), var(--rose-soft), var(--gold), transparent);
+  margin-bottom: 3rem;
+}
+
+.footer-wish {
+  font-family: 'Rozha One', serif;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  color: var(--gold-light);
+  margin-bottom: .5rem;
+  line-height: 1.1;
+}
+
+.footer-sub {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: rgba(253,246,236,.6);
+  margin-bottom: 2rem;
+}
+
+.footer-flowers {
+  font-size: 2rem;
+  letter-spacing: .5rem;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
+
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 640px) {
+  .timeline-wrap::before { left: 26px; }
+
+  .moment {
+    grid-template-columns: 52px 1fr !important;
+    grid-template-rows: auto;
+  }
+  .moment:nth-child(odd) .moment-card,
+  .moment:nth-child(even) .moment-card  { grid-column: 2 !important; }
+  .moment:nth-child(odd) .moment-node,
+  .moment:nth-child(even) .moment-node  { grid-column: 1 !important; grid-row: 1; }
+  .moment-empty { display: none !important; }
+
+  .moment:nth-child(odd) .moment-card::after,
+  .moment:nth-child(even) .moment-card::after {
+    left: -9px; right: auto;
+    border-left-color: transparent;
+    border-right-color: white;
+  }
+
+  .letter { padding: 2rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="petal-canvas"></canvas>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-ornament">🪔</div>
+  <p class="hero-from">From Sri Balaji, with all my love</p>
+
+  <!-- Lotus SVG -->
+<div class="hero-photo">
+    <img src="./abyy.jpg" alt="Abinaya">
+</div>
+
+  <h1 class="hero-name">Abi<span class="accent">naya</span></h1>
+  <div class="hero-age-pill">31 & absolutely radiant ✨</div>
+  <p class="hero-sub">Our queen, our home, our heart - in every season.</p>
+  <span class="scroll-cue">↓ our story ↓</span>
+</section>
+
+<!-- ═══════════ TIMELINE ═══════════ -->
+<div class="section-label">
+  <span class="kalam">how it all began</span>
+  <h2>The Story of Us</h2>
+  <div class="gold-rule"></div>
+</div>
+
+<div class="timeline-wrap">
+
+  <!-- ERA 1 -->
+  <div class="era-label"><span>🌿 The Beginning - Sep 2020</span></div>
+
+  <div class="moment">
+    <div class="moment-card">
+      <p class="card-date">14 September 2020</p>
+      <h3 class="card-title">The First Look</h3>
+      <p class="card-body">Ambur. A laugh I had never heard before - and somehow knew I never wanted to stop hearing. That was you. My angel, in that very first moment.</p>
+    </div>
+    <div class="moment-node"><div class="node-circle">🌷</div></div>
+    <div class="moment-empty"></div>
+  </div>
+
+  <div class="moment">
+    <div class="moment-empty"></div>
+    <div class="moment-node"><div class="node-circle">💛</div></div>
+    <div class="moment-card">
+      <p class="card-date">17 September 2020</p>
+      <h3 class="card-title">Official Acceptance</h3>
+      <p class="card-body">Three days later, something pure and emotional settled between us. For the first time in my life, I truly felt what love is.</p>
+    </div>
+  </div>
+
+  <!-- ERA 2 -->
+  <div class="era-label"><span>🌸 Growing Closer - Oct & Nov 2020</span></div>
+
+  <div class="moment">
+    <div class="moment-card">
+      <p class="card-date">11 October 2020</p>
+      <h3 class="card-title">First Visit & Long Talks</h3>
+      <p class="card-body">Your home. Your voice. Hours and hours - just the two of us, the world elsewhere. That sweetness has never left me.</p>
+    </div>
+    <div class="moment-node"><div class="node-circle">📞</div></div>
+    <div class="moment-empty"></div>
+  </div>
+
+  <div class="moment">
+    <div class="moment-empty"></div>
+    <div class="moment-node"><div class="node-circle">💍</div></div>
+    <div class="moment-card">
+      <p class="card-date">19 October 2020</p>
+      <h3 class="card-title">Officially Engaged</h3>
+      <p class="card-body">A promise made. Two families, one future. The rings weren't on yet - but our hearts already were.</p>
+    </div>
+  </div>
+
+  <div class="moment">
+    <div class="moment-card">
+      <p class="card-date">25 October 2020</p>
+      <h3 class="card-title">Nine Hours of Us</h3>
+      <p class="card-body">Nine hours on the phone in a single day. We crossed into a deeper layer of love that day - the kind where silences feel as close as words.</p>
+    </div>
+    <div class="moment-node"><div class="node-circle">🌙</div></div>
+    <div class="moment-empty"></div>
+  </div>
+
+  <div class="moment">
+    <div class="moment-empty"></div>
+    <div class="moment-node"><div class="node-circle">🤝</div></div>
+    <div class="moment-card highlight">
+      <p class="card-date">6 November 2020</p>
+      <h3 class="card-title">Kanchipuram - Everything at Once</h3>
+      <p class="card-body">Sarees, families, and for the very first time - your hand in mine, outside, in the world. Our first photo together. A forehead kiss that meant everything. A moment I have replayed ten thousand times.</p>
+    </div>
+  </div>
+
+  <!-- ERA 3 -->
+  <div class="era-label"><span>🌹 Deepening - Dec 2020</span></div>
+
+  <div class="moment">
+    <div class="moment-card highlight">
+      <p class="card-date">5 December 2020</p>
+      <h3 class="card-title">Vellore Walk</h3>
+      <p class="card-body">Chennai Silks to Pachaiyappas - a long, beautiful walk just the two of us. The city did not exist. Only you did.</p>
+    </div>
+    <div class="moment-node"><div class="node-circle">🚶</div></div>
+    <div class="moment-empty"></div>
+  </div>
+
+  <div class="moment">
+    <div class="moment-empty"></div>
+    <div class="moment-node"><div class="node-circle">💎</div></div>
+    <div class="moment-card highlight">
+      <p class="card-date">12 December 2020</p>
+      <h3 class="card-title">Rings Exchanged</h3>
+      <p class="card-body">Perfectly planned. Perfectly us. Domino's has never been more romantic. We made it official - on our own terms, in our own quiet way.</p>
+    </div>
+  </div>
+
+  <!-- ERA 4 -->
+  <div class="era-label"><span>🪷 Forever - Jan 2021 onwards</span></div>
+
+  <div class="moment">
+    <div class="moment-card">
+      <p class="card-date">24 January 2021</p>
+      <h3 class="card-title">You in Bridal Silk</h3>
+      <p class="card-body">I had never seen anything so beautiful. You in your bridal saree - I am certain that image lives in every version of my memory forever.</p>
+    </div>
+    <div class="moment-node"><div class="node-circle">🌺</div></div>
+    <div class="moment-empty"></div>
+  </div>
+
+  <div class="moment">
+    <div class="moment-empty"></div>
+    <div class="moment-node"><div class="node-circle">🪔</div></div>
+    <div class="moment-card highlight">
+      <p class="card-date">25 January 2021</p>
+      <h3 class="card-title">Our Wedding Day</h3>
+      <p class="card-body">The day two souls became one family. Every ritual, every fire, every blessing - all of it pointing to the same truth: you are my person, now and always.</p>
+    </div>
+  </div>
+
+  <div class="moment">
+    <div class="moment-card">
+      <p class="card-date">5 February 2021</p>
+      <h3 class="card-title">Tirupati with Family</h3>
+      <p class="card-body">Our first divine journey together - seeking blessings with the ones we love. A sacred beginning to our life as husband and wife.</p>
+    </div>
+    <div class="moment-node"><div class="node-circle">🛕</div></div>
+    <div class="moment-empty"></div>
+  </div>
+
+  <div class="moment">
+    <div class="moment-empty"></div>
+    <div class="moment-node"><div class="node-circle">🏠</div></div>
+    <div class="moment-card">
+      <p class="card-date">25 February 2021</p>
+      <h3 class="card-title">Our Home - Sholinganallur</h3>
+      <p class="card-body">Chennai welcomed us. A new home, a new chapter. The first evening we stepped in together, it stopped being an house and became home.</p>
+    </div>
+  </div>
+
+  <!-- ERA 5 -->
+  <div class="era-label"><span>🌟 Joy & New Life - 2021–2022</span></div>
+
+  <div class="moment">
+    <div class="moment-card highlight">
+      <p class="card-date">2 June 2021</p>
+      <h3 class="card-title">Your First Birthday as My Wife 🎂</h3>
+      <p class="card-body">I thought so hard about every single gift. The na na na na song, the cake, the celebration - I just wanted you to feel as cherished as you make me feel every day.</p>
+    </div>
+    <div class="moment-node"><div class="node-circle">🎂</div></div>
+    <div class="moment-empty"></div>
+  </div>
+
+  <div class="moment">
+    <div class="moment-empty"></div>
+    <div class="moment-node"><div class="node-circle">🌱</div></div>
+    <div class="moment-card highlight">
+      <p class="card-date">25 December 2021</p>
+      <h3 class="card-title">Kum Kutty is Coming</h3>
+      <p class="card-body">Christmas brought us the greatest gift of all - the confirmation. Our joy, our everything, was on the way. We cancelled the honeymoon without a second thought. Nothing else mattered.</p>
+    </div>
+  </div>
+
+  <div class="moment">
+    <div class="moment-card">
+      <p class="card-date">1 June 2022</p>
+      <h3 class="card-title">Valaikaapu - Baby Shower</h3>
+      <p class="card-body">The bangles, the blessings, the joy on your face. Our families surrounding us. That day glowed with a warmth I will never forget.</p>
+    </div>
+    <div class="moment-node"><div class="node-circle">🌊</div></div>
+    <div class="moment-empty"></div>
+  </div>
+
+  <div class="moment">
+    <div class="moment-empty"></div>
+    <div class="moment-node"><div class="node-circle">👶</div></div>
+    <div class="moment-card highlight">
+      <p class="card-date">12 August 2022</p>
+      <h3 class="card-title">It's a Boy - Kum Kutty! 🎉</h3>
+      <p class="card-body">After all your strength, all your pain - he arrived. A boy. Our boy. The moment he came into this world, you became a mother - and it is the most powerful, most beautiful thing I have ever witnessed.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════ MOTHERHOOD ═══════════ -->
+<section class="motherhood">
+  <div class="section-label" style="padding-top:0">
+    <span class="kalam">our little naughty one</span>
+    <h2>Kum Kutty & His Amma</h2>
+    <div class="gold-rule"></div>
+  </div>
+
+  <div class="mother-grid">
+    <div class="mother-chip"><span class="chip-icon">👑</span>You are the queen of his world - and he knows it completely.</div>
+    <div class="mother-chip"><span class="chip-icon">🌿</span>Patient, warm, and endlessly devoted - you make motherhood look effortless.</div>
+    <div class="mother-chip"><span class="chip-icon">😈</span>He is naughty, charming, and utterly impossible to resist - just like his Amma.</div>
+    <div class="mother-chip"><span class="chip-icon">🤗</span>Three and a half years of magic - and every single day, you are his safe place.</div>
+    <div class="mother-chip"><span class="chip-icon">🧠</span>You plan, you think, you give - for both of us. We see it. We feel it. Always.</div>
+    <div class="mother-chip"><span class="chip-icon">💛</span>The way he looks at you says everything I could never put into words.</div>
+  </div>
+</section>
+
+<!-- ═══════════ LOVE LETTER ═══════════ -->
+<section class="letter-wrap">
+  <div class="letter">
+    <span class="letter-salutation">My dearest Abinaya,</span>
+    <p class="letter-body">
+      Thirty-one years ago, the world received someone extraordinary - and I spent most of my life not knowing you existed, which feels like such a waste of good years.<br><br>
+      You are <strong>not just older today</strong>. You are fuller, brighter, more you than you have ever been. Thirty-one is not a number - it is a woman who has loved deeply, built a home, raised a remarkable child, and done it all with grace I can only admire from up close.<br><br>
+      I love you when you laugh without warning. I love you when you plan everything down to the last detail so the rest of us can simply live in the world you create. I love you as a wife, as the mother of our Kum Kutty, and as my best person.<br><br>
+      In your ups and in your downs - <strong>I will be there</strong>. That is not a promise. That is just who I am, because of who you are.<br><br>
+      Happy Birthday, my queen. 🌸
+    </p>
+    <span class="letter-sig">- Sri Balaji &amp; Kum Kutty 🪔</span>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="site-footer">
+  <p class="footer-wish">Happy Birthday, Abinaya</p>
+  <p class="footer-sub">31 and blooming more beautifully than ever.</p>
+  <div class="footer-flowers">🌹 🪷 🌸 🌺 🌼</div>
+</footer>
+
+<!-- ═══════════ SCRIPTS ═══════════ -->
+<script>
+// ── FALLING JASMINE PETALS ──
+const canvas = document.getElementById('petal-canvas');
+const ctx    = canvas.getContext('2d');
+let W, H;
+
+function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+resize(); window.addEventListener('resize', resize);
+
+const COLORS = ['#f9e8cc','#e8c07a','#faeaed','#e8899a','#f7d6b0','#fde8ec'];
+const SHAPES  = ['circle','petal','diamond'];
+
+class Petal {
+  constructor(initial) {
+    this.reset(initial);
+  }
+  reset(initial) {
+    this.x     = Math.random() * W;
+    this.y     = initial ? Math.random() * H : -16;
+    this.r     = 3.5 + Math.random() * 5.5;
+    this.vx    = (Math.random() - .5) * .7;
+    this.vy    = .55 + Math.random() * 1.1;
+    this.angle = Math.random() * Math.PI * 2;
+    this.va    = (Math.random() - .5) * .035;
+    this.alpha = .35 + Math.random() * .45;
+    this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    this.shape = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+    this.sway  = Math.random() * .02;
+    this.swayT = Math.random() * 100;
+  }
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    ctx.globalAlpha = this.alpha;
+    ctx.fillStyle = this.color;
+    if (this.shape === 'petal') {
+      ctx.beginPath();
+      ctx.ellipse(0, 0, this.r * .7, this.r * 1.6, 0, 0, Math.PI * 2);
+    } else if (this.shape === 'diamond') {
+      ctx.beginPath();
+      ctx.moveTo(0, -this.r * 1.4);
+      ctx.lineTo(this.r * .8, 0);
+      ctx.lineTo(0, this.r * 1.4);
+      ctx.lineTo(-this.r * .8, 0);
+      ctx.closePath();
+    } else {
+      ctx.beginPath();
+      ctx.arc(0, 0, this.r, 0, Math.PI * 2);
+    }
+    ctx.fill();
+    ctx.restore();
+  }
+  update() {
+    this.swayT += this.sway;
+    this.x += this.vx + Math.sin(this.swayT) * .4;
+    this.y += this.vy;
+    this.angle += this.va;
+    if (this.y > H + 20) this.reset(false);
+  }
+}
+
+const petals = Array.from({length: 60}, (_, i) => new Petal(true));
+
+function loop() {
+  ctx.clearRect(0, 0, W, H);
+  petals.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(loop);
+}
+loop();
+
+// ── SCROLL REVEAL ──
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: .12 });
+document.querySelectorAll('.moment').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
